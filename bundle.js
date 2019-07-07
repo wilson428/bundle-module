@@ -5,34 +5,34 @@ const argv = require('minimist')(process.argv.slice(2));
 const webpack = require('webpack');
 const generateConfig = require("./lib/generateConfig.js");
 
-console.log(__dirname);
+let name = argv.name || "bundle";
+name = name.replace(/\.min|\.js/g, "");
 
-let filename = argv.filename || "bundle";
-filename = filename.replace(/\.min|\.js/g, "");
+let filename = name;
+if (argv.min || argv.minified) {
+	filename += ".min";
+}
+filename += ".js";
 
 const options = {
 	entry: argv.entry || "./index.js",
 	output: {
-		path: path.resolve(__dirname, argv.output_path || "./dist"),
-		filename: filename + (argv.min || argv.minified ? ".min" : "") + ".js",
+		path: path.resolve(process.cwd(), argv.output_path || "./dist"),
+		library: name,
+		filename: filename,
+		libraryExport: argv.export_name || "default"
 	},
 	minified: (argv.min || argv.minified) ? true : false 
 };
 
-generateConfig(options);
+const compiler = webpack(generateConfig(options));
 
-/*
-const compiler = webpack({
-  // Configuration Object
+compiler.run((err, stats) => {
+	if (err || stats.hasErrors()) {
+		console.error(err);
+		console.error(stats.hasErrors());
+		console.error(stats);
+	} else {
+		console.log(`Compiled ${ options.output.path + "/" + options.output.filename } without errors!`)
+	}
 });
-
-
-webpack({
-  // Configuration Object
-}, (err, stats) => { // Stats Object
-  if (err || stats.hasErrors()) {
-    // Handle errors here
-  }
-  // Done processing
-});
-*/
