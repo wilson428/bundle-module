@@ -1,9 +1,15 @@
 #!/usr/bin/env node
 
+const package = require("./package.json");
 const path = require('path');
 const argv = require('minimist')(process.argv.slice(2));
 const webpack = require('webpack');
 const generateConfig = require("./lib/generateConfig.js");
+
+if (argv.v || argv.version) {
+	console.log(package.version);
+	process.exit();
+}
 
 let name = argv.name || "bundle";
 name = name.replace(/\.min|\.js/g, "");

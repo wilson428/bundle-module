@@ -1,6 +1,6 @@
 {
   "name": "bundle-module-for-browser",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "Use Webpack to create a browser-friendly version of your npm module without muddying the repo",
   "main": "index.js",
   "scripts": {
