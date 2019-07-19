@@ -1,5 +1,5 @@
 {
-  "name": "bundle-module-for-browser",
+  "name": "bundle-module",
   "version": "0.0.4",
   "description": "Use Webpack to create a browser-friendly version of your npm module without muddying the repo",
   "main": "index.js",
@@ -9,7 +9,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "devDependencies": {
+  "dependencies": {
     "@babel/core": "^7.5.5",
     "@babel/plugin-transform-runtime": "7.5.5",
     "@babel/preset-env": "^7.5.5",
