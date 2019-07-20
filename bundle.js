@@ -38,6 +38,7 @@ compiler.run((err, stats) => {
 		console.error(err);
 		console.error(stats.hasErrors());
 		console.error(stats);
+		console.log("FAILED TO BUILD");
 	} else {
 		console.log(`Compiled ${ options.output.path + "/" + options.output.filename } without errors!`)
 	}
