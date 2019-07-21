@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+const util = require('util')
 const package = require("./package.json");
 const path = require('path');
 const argv = require('minimist')(process.argv.slice(2));
@@ -38,11 +39,23 @@ const compiler = webpack(generateConfig(options));
 
 compiler.run((err, stats) => {
 	if (err || stats.hasErrors()) {
-		console.error(err);
-		console.error(stats.hasErrors());
-		console.error(stats);
-		console.log("FAILED TO BUILD");
+		let errorMessages = stats.compilation.errors;
+
+		// hack way to show error without the endless babel stack
+		errorMessages.forEach(errorMessage => {
+			let obj_strs = util.inspect(errorMessage, true, 3, true).split(/\n/g);
+			// console.log(obj_strs);
+			obj_strs.forEach((line, l) => {
+				if (!/ +at /.test(line) && !/\[message\]/.test(line) && !/\[stack\]/.test(line) && !/Module(.*?)Error/.test(line)) {
+					console.log(line);
+				}
+			});
+		});
+
+		console.log("\x1b[31m", "Failed to build. See above for source of errors.");
+		console.log("\x1b[0m");
 	} else {
-		console.log(`Compiled ${ options.output.path + "/" + options.output.filename } without errors!`)
+		console.log("\x1b[32m", `Successfully compiled ${ options.output.path + "/" + options.output.filename } without errors!`);
+		console.log("\x1b[0m");		
 	}
 });
