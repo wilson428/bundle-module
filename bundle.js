@@ -16,6 +16,7 @@ name = name.replace(/\.min|\.js/g, "");
 
 let filename = name;
 if (argv.min || argv.minified) {
+	argv.min = true;
 	filename += ".min";
 }
 filename += ".js";
@@ -23,12 +24,14 @@ filename += ".js";
 const options = {
 	entry: argv.entry || "./index.js",
 	output: {
-		path: path.resolve(process.cwd(), argv.output_path || "./dist"),
+		path: path.resolve(process.cwd(), argv.output_dir || "./dist"),
 		library: name,
 		filename: filename,
 		libraryExport: argv.export_name || "default"
 	},
-	minified: (argv.min || argv.minified) ? true : false 
+	minified: (argv.min || argv.minified) ? true : false,
+	source_map: argv.source_map || (argv.min ? false : true ),
+	verbose: argv.verbose ? argv.verbose : false
 };
 
 const compiler = webpack(generateConfig(options));
