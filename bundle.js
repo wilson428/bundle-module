@@ -23,7 +23,7 @@ if (argv.min || argv.minified) {
 filename += ".js";
 
 const options = {
-	env: opts.env || "browser",
+	env: argv.env || "browser",
 	entry: argv.entry || "./index.js",
 	output: {
 		path: path.resolve(process.cwd(), argv.output_dir || "./dist"),
