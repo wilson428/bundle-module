@@ -23,6 +23,7 @@ if (argv.min || argv.minified) {
 filename += ".js";
 
 const options = {
+	env: opts.env || "browser",
 	entry: argv.entry || "./index.js",
 	output: {
 		path: path.resolve(process.cwd(), argv.output_dir || "./dist"),
@@ -32,12 +33,13 @@ const options = {
 	},
 	minified: (argv.min || argv.minified) ? true : false,
 	source_map: argv.source_map || (argv.min ? false : true ),
-	verbose: argv.verbose ? argv.verbose : false
+	verbose: argv.verbose ? argv.verbose : false,
 };
 
 const compiler = webpack(generateConfig(options));
 
-compiler.run((err, stats) => {
+
+function describeStats(err, stats) {
 	if (err || stats.hasErrors()) {
 		let errorMessages = stats.compilation.errors;
 
@@ -58,4 +60,18 @@ compiler.run((err, stats) => {
 		console.log("\x1b[32m", `Successfully compiled ${ options.output.path + "/" + options.output.filename } without errors!`);
 		console.log("\x1b[0m");		
 	}
-});
+}
+
+
+if (argv.watch) {
+	const watching = compiler.watch({
+		aggregateTimeout: 300,
+		poll: undefined
+	}, (err, stats) => { // Stats Object
+		describeStats(err, stats);		
+	});
+} else {
+	compiler.run((err, stats) => {
+		describeStats(err, stats);
+	});
+}

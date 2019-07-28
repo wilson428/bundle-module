@@ -24,6 +24,7 @@ This basic usage will create a `dist` directory in your project with a file call
 | `--output_dir` | The name of the local directory to contain the compiled file | `dist`  |
 | `--name` | The name used in the compiled file. There's no need to include `.js`. | `bundle` |
 | `--min`, `--minified` | Whether to minify the output, which will automatically have the name `[name].min.js` | `false` |
+| `--watch` | Whether to recompile after every file change | `false` |
 | `--verbose` | Whether to output the (long) configuration file| `false` |
 
 ## Supported loaders
