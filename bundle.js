@@ -13,12 +13,15 @@ if (argv.v || argv.version) {
 }
 
 let name = argv.name || "bundle";
-name = name.replace(/\.min|\.js/g, "");
+// name = name.replace(/\.min|\.js/g, "");
+name = name.replace(/\.js/g, "");
 
 let filename = name;
 if (argv.min || argv.minified) {
 	argv.min = true;
-	filename += ".min";
+	if (!/min/.test(filename)) {
+		filename += ".min";
+	}
 }
 filename += ".js";
 
