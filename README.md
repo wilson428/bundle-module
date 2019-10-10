@@ -1,6 +1,6 @@
 # Bundle Modules for the Browser
 
-v0.7
+v0.8
 
 Webpack is an incredible toolkit for compiling and transpiling Node modules for use in the browser. The only drawback, I've found, is that keeping the configuration files and their many dependencies in every local project directory can lead to a lot of bloat in `node_modules` and requires a fair degree of tedious copying and pasting when many projects use essentially the same configuration.
 
