@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+const fs = require('fs');
 const util = require('util')
 const package = require("./package.json");
 const path = require('path');
@@ -39,10 +40,21 @@ const options = {
 	verbose: argv.verbose ? argv.verbose : false,
 };
 
-const compiler = webpack(generateConfig(options));
+
+const config = generateConfig(options);
+
+if (argv.profile) {
+	config.profile = true;
+}
+
+const compiler = webpack(config);
 
 
 function describeStats(err, stats) {
+	if (argv.stats) {
+		fs.writeFileSync(options.output.path + "/stats.json", JSON.stringify(stats.toJson(), null, 2));
+	}
+
 	if (err || stats.hasErrors()) {
 		let errorMessages = stats.compilation.errors;
 
@@ -69,7 +81,7 @@ function describeStats(err, stats) {
 if (argv.watch) {
 	const watching = compiler.watch({
 		aggregateTimeout: 300,
-		poll: undefined
+		poll: argv.profile || false
 	}, (err, stats) => { // Stats Object
 		describeStats(err, stats);		
 	});
