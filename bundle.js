@@ -49,7 +49,6 @@ if (argv.profile) {
 
 const compiler = webpack(config);
 
-
 function describeStats(err, stats) {
 	if (argv.stats) {
 		fs.writeFileSync(options.output.path + "/stats.json", JSON.stringify(stats.toJson(), null, 2));
@@ -58,11 +57,17 @@ function describeStats(err, stats) {
 	if (err || stats.hasErrors()) {
 		let errorMessages = stats.compilation.errors;
 
-		// hack way to show error without the endless babel stack
+		// hacky way to show error without the endless babel stack
 		errorMessages.forEach(errorMessage => {
 			let obj_strs = util.inspect(errorMessage, true, 3, true).split(/\n/g);
-			// console.log(obj_strs);
+
+			console.log(obj_strs);
+
 			obj_strs.forEach((line, l) => {
+				if (l == 0) {
+					console.log(line);
+					return;
+				}
 				if (!/ +at /.test(line) && !/\[message\]/.test(line) && !/\[stack\]/.test(line) && !/Module(.*?)Error/.test(line)) {
 					console.log(line);
 				}
@@ -83,10 +88,20 @@ if (argv.watch) {
 		aggregateTimeout: 300,
 		poll: argv.profile || false
 	}, (err, stats) => { // Stats Object
-		describeStats(err, stats);		
+		if (err || stats.hasErrors()) {
+			describeStats(err, stats);
+		} else {
+			console.log("\x1b[32m", `Successfully compiled ${ options.output.path + "/" + options.output.filename } without errors!`);
+			console.log("\x1b[0m");					
+		}
 	});
 } else {
 	compiler.run((err, stats) => {
-		describeStats(err, stats);
+		if (err || stats.hasErrors()) {
+			describeStats(err, stats);
+		} else {
+			console.log("\x1b[32m", `Successfully compiled ${ options.output.path + "/" + options.output.filename } without errors!`);
+			console.log("\x1b[0m");					
+		}
 	});
 }
