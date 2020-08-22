@@ -1,12 +1,18 @@
 # Bundle Modules for the Browser
 
-v0.8
+A no-config tool to bundle your apps into a single file using a remote Webpack configuration that spares you both the need for redundant local Webpack configuration files _and_ an enormous glut of libraries in the _node_modules_ directory of every project.
+
+v0.9
 
 Webpack is an incredible toolkit for compiling and transpiling Node modules for use in the browser. The only drawback, I've found, is that keeping the configuration files and their many dependencies in every local project directory can lead to a lot of bloat in `node_modules` and requires a fair degree of tedious copying and pasting when many projects use essentially the same configuration.
 
 This module generates a configuration file outside the project and returns a packaged file for the browser in the project directory.
 
 ## Installation
+
+	npm install -g bundle-module
+
+Or, for the edge version:
 
 	npm install -g wilson428/bundle-module
 
@@ -29,9 +35,20 @@ This basic usage will create a `dist` directory in your project with a file call
 | `--watch` | Whether to recompile after every file change | `false` |
 | `--verbose` | Whether to output the (long) configuration file| `false` |
 
+## Development vs. Production mode
+
+Using `--min` defaults to production mode and generates `bundle-min.js` while omitting it builds an unminified, source-mapped `bundle.js` (whatever name you specified with `--name` instead of `bundle`). To save time, I recommend the following scripts in your `package.json` for a given app:
+
+	"scripts": {
+		"build": "bundle-module --entry=./debug.js --name=script --env=node --output_dir=.",
+		"build_verbose": "bundle-module --entry=./debug.js --name=script --env=node --output_dir=. --verbose",
+		"watch": "bundle-module --entry=./debug.js --name=script --env=node --output_dir=. --watch",
+		"minify": "bundle-module --entry=./debug.js --name=script-min --env=node --output_dir=. --min"
+	}
+
 ## Supported loaders
 
-At present, `bundle-module` will understand the following file types when included with `import` or `require`. If you commonly use a filetype that requires a different [loader](https://webpack.js.org/loaders/), such as a different templating engine, by all means let me know or, better yet, send me a PR!
+At present, `bundle-module` will understand the following file types when included with `import` or `require`. If you commonly use a filetype that requires a different [loader](https://webpack.js.org/loaders/), such as a different templating engine, by all means <a href="mailto:wilson@mechanicalscribe.com">let me know</a> or, better yet, <a href="https://github.com/wilson428/bundle-module" target="_blank">send me a PR!</a>
 
 + `.js`: Javascript files are automatically transpiled with [Babel](https://babeljs.io/), allowing you to write your module in ES6.
 + `.json`: Node understands JSON imports by default.
