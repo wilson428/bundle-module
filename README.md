@@ -2,7 +2,7 @@
 
 A no-config tool to bundle your apps into a single file using a remote Webpack configuration that spares you both the need for redundant local Webpack configuration files _and_ an enormous glut of libraries in the _node_modules_ directory of every project.
 
-v1.0
+v1.1
 
 Webpack is an incredible toolkit for compiling and transpiling Node modules for use in the browser. The only drawback, I've found, is that keeping the configuration files and their many dependencies in every local project directory can lead to a lot of bloat in `node_modules` and requires a fair degree of tedious copying and pasting when many projects use essentially the same configuration.
 
