@@ -1,6 +1,6 @@
 # Logs
 .DS_Store
-test
+test/demo/*.js
 
 logs
 *.log
