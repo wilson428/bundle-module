@@ -13,26 +13,13 @@ if (argv.v || argv.version) {
 	process.exit();
 }
 
-let name = argv.name || "bundle";
-// name = name.replace(/\.min|\.js/g, "");
-name = name.replace(/\.js/g, "");
-
-let filename = name;
-if (argv.min || argv.minified) {
-	argv.min = true;
-	if (!/min/.test(filename)) {
-		filename += ".min";
-	}
-}
-filename += ".js";
-
 const options = {
 	env: argv.env || "browser",
 	entry: argv.entry || "./index.js",
 	output: {
 		path: path.resolve(process.cwd(), argv.output_dir || "./dist"),
-		library: name,
-		filename: filename,
+		// library: name,
+		// filename: filename,
 		libraryExport: argv.export_name || "default"
 	},
 	minified: (argv.min || argv.minified) ? true : false,
@@ -40,6 +27,22 @@ const options = {
 	verbose: argv.verbose ? argv.verbose : false,
 };
 
+let name = argv.name || "bundle";
+name = name.replace(/\.js/g, ""); // we'll append .js ourselves
+
+let filename = argv.filename || name;
+
+if (argv.min || argv.minified) {
+	argv.min = true;
+	if (!/min/.test(filename)) {
+		filename += ".min";
+	}
+}
+
+filename = filename.replace(".js", "") + ".js";
+
+options.output.library = name;
+options.output.filename = filename;
 
 const config = generateConfig(options);
 

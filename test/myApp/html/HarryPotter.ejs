@@ -1,0 +1,14 @@
+<table>
+	<tr>
+		<th>Name</th>
+		<th><!-- image --></th>
+		<th>House</th>
+	</tr>
+	<% for (let c = 0; c < characters.length; c += 1) {%>
+	<tr>
+		<td><%= characters[c].first %> <%= characters[c].last %></td>
+		<td><img src="<%= characters[c].img %>" /></td>
+		<td><%= characters[c].house %></td>
+	</tr>
+	<% } %>
+</table>

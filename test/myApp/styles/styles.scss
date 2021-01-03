@@ -1,0 +1,16 @@
+.myApp {
+	max-width: 800px;
+	$title_color: #CC0000;
+	color: #606060;
+	font-family: Arial;
+	text-align: center;
+	font-size: 16px;
+
+	h1 {
+		color: $title_color;
+	}
+
+	p {
+		text-align: left;		
+	}
+}
