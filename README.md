@@ -2,7 +2,7 @@
 
 A no-config tool to bundle your apps into a single file using a remote Webpack configuration that spares you both the need for redundant local Webpack configuration files _and_ an enormous glut of libraries in the _node_modules_ directory of every project.
 
-v1.3
+v1.4
 
 Webpack is an incredible toolkit for compiling and transpiling Node modules for use in the browser. The only drawback, I've found, is that keeping the configuration files and their many dependencies in every local project directory can lead to a lot of bloat in `node_modules` and requires a fair degree of tedious copying and pasting when many projects use essentially the same configuration.
 
@@ -18,8 +18,22 @@ Or, for the edge version:
 
 ## Usage
 
+### Command Line
+
 	# cd /path/to/project
 	bundle-module --name=myproject
+
+### Node
+
+	const bundleModule = require('bundle-module');
+	
+	bundleModule({
+		entry: './myApp/index.js',
+		filename: 'myApp.script.js',
+		env: 'node',
+		output_dir: './dist'
+	});
+
 
 This basic usage will create a `dist` directory in your project with a file called `myproject.js` that can be included on a Web page in a single `<script>` tag. The project itself can include any local dependencies you wish -- D3, for example.
 

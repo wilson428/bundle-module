@@ -26,3 +26,4 @@ document.getElementById("myApp_container").classList.add("myApp");
 document.getElementById("myApp_container").innerHTML = markup();
 
 document.getElementById("HP_table").innerHTML = HP({ characters: data });
+
