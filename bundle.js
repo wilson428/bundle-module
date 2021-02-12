@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+const package = require("./package.json");
 const argv = require('minimist')(process.argv.slice(2));
 
 if (argv.v || argv.version) {
