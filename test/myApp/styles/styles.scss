@@ -1,5 +1,6 @@
 .myApp {
-	max-width: 800px;
+	$maxWidth: 3200px;
+	max-width: $maxWidth / 4;
 	$title_color: #CC0000;
 	color: #606060;
 	font-family: Arial;
