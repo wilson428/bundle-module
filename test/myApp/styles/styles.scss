@@ -1,17 +1,30 @@
+@use "sass:math" as math;
+
+$white: #FFFFFF;
+$black: #000000;
+$gray: #808080;
+
 .myApp {
 	$maxWidth: 3200px;
-	max-width: $maxWidth / 4;
-	$title_color: #CC0000;
+	max-width: math.div($maxWidth, 2);
 	color: #606060;
 	font-family: Arial;
 	text-align: center;
 	font-size: 16px;
+	$title_color: #CC0000;
 
 	h1 {
 		color: $title_color;
+		/* background-image: url("../img/paper.png") */
 	}
 
 	p {
-		text-align: left;		
+		text-align: left;	
 	}
+}
+
+:export {
+    white: $white;
+    black: $black;
+    grey: $gray;
 }
