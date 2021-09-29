@@ -12,9 +12,7 @@ const bundleModule = function(args) {
 		entry: args.entry || "./index.js",
 		output: {
 			path: path.resolve(process.cwd(), args.output_dir || "./dist"),
-			libraryExport: args.export_name || undefined,
-			library: args.library || 'MyBundle',
-        	libraryTarget: args.libraryTarget || 'umd',
+			libraryExport: args.export_name || "default"
 		},
 		minified: (args.min || args.minified) ? true : false,
 		source_map: args.source_map || (args.min ? false : true ),
