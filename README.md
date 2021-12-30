@@ -1,8 +1,12 @@
 # Bundle Modules for the Browser
 
-A no-config tool to bundle your apps into a single file using a remote Webpack configuration that spares you both the need for redundant local Webpack configuration files _and_ an enormous glut of libraries in the _node_modules_ directory of every project.
+v0.1.9
 
-v0.1.7
+A universal no-config Webpack bundler to assemble your apps into a single. Because this uses a remote configuration, it spares you both the pain of maintaining local Webpack environments that constantly change _and_ an enormous glut of libraries in the _node_modules_ directory of every project.
+
+**Your help needed.** Webpack is constantly updating, so it's important that the universal configuration both be optimized and compatible with all recent browsers and old projects. I'll do my best, but I'm sure you can do better. PRs welcome!
+
+## Background
 
 Webpack is an incredible toolkit for compiling and transpiling Node modules for use in the browser. The only drawback, I've found, is that keeping the configuration files and their many dependencies in every local project directory can lead to a lot of bloat in `node_modules` and requires a fair degree of tedious copying and pasting when many projects use essentially the same configuration.
 
@@ -74,3 +78,7 @@ At present, `bundle-module` will understand the following file types when includ
 + `.html`, `.ejs`: You can either `require` plain HTML or [Embedded JavaScript templates](https://ejs.co/).
 + `.csv`, `.dsv`, `tsv`: You can require any sort of delimited data file, which will appear in the code like a JSON file.
 + `.png`, `.jpe?g`, `.gif`: Include images as base64 data. Be mindful of filesize.
+
+## Compatibility
+
+As you'll see in the test modules, this configuration ideally supports `async` and `await` commands and a variety of other polyfills.
